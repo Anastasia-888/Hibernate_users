@@ -8,12 +8,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Objects;
 import java.util.Properties;
 
 import static java.util.Objects.isNull;
@@ -24,6 +21,10 @@ public class Util {
     private static final String USER = "root";
     private static final String PASSWORD = "root";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DIALECT = "org.hibernate.dialect.MySQLDialect";
+    private static final String THREAD = "thread";
+    private static final String NONE = "none";
+
     private static Connection connection;
 
     private static SessionFactory sessionFactory;
@@ -52,13 +53,13 @@ public class Util {
                 settings.put(Environment.URL, URL);
                 settings.put(Environment.USER, USER);
                 settings.put(Environment.PASS, PASSWORD);
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
+                settings.put(Environment.DIALECT, DIALECT);
 
                 settings.put(Environment.SHOW_SQL, "true");
 
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, THREAD);
 
-                settings.put(Environment.HBM2DDL_AUTO, "none");
+                settings.put(Environment.HBM2DDL_AUTO, NONE);
 
                 settings.put(Environment.C3P0_MIN_SIZE, 5);
                 settings.put(Environment.C3P0_MAX_SIZE, 200);
