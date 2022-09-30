@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
 import static jm.task.core.jdbc.util.Util.getSessionFactory;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -43,7 +44,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.persist(user);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
+            if (!isNull(transaction)) {
                 transaction.rollback();
             }
             e.printStackTrace();
